@@ -34,7 +34,7 @@ func (d *Downloader) Download(strUrl, filename string) error {
 
 	bar := progressbar.DefaultBytes(
 		resp.ContentLength,
-		"downloading",
+		fmt.Sprintf("downloading with %d goroutines", d.concurrency),
 	)
 	if resp.StatusCode == http.StatusOK && resp.Header.Get("Accept-Ranges") == "bytes" {
 		return d.md(strUrl, filename, int(resp.ContentLength), bar)
